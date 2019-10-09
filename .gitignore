@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+# allow this in order to bbe bale to publish on github
+#/build
 
 # misc
 .DS_Store
