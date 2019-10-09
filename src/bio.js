@@ -185,7 +185,8 @@ export const anticodon = (str) => {
         return 'G'
       case 'U':
         return 'A'
-      case _ :
+        break;
+      default:
         return null;
     }
   }).join('');
@@ -210,6 +211,10 @@ export const dnaToRna = str => {
 export const codons = str => {
   // divide the string in subset strings of length 3
   const codons = str.match(/.{1,3}/g);
+
+  if (!codons) {
+    return '';
+  } 
 
   return codons.map(codonToAa).join('');
 }
