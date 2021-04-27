@@ -20,10 +20,8 @@ export const aas = [
   ["S", "Ser", "Serine"],
   ["G", "Gly", "Glycine"],
   ["U", "Sec", "Selenocysteine"],
-  ["O", "Pyr", "Pyrrolysine"]
-].map((a) => {
-  return {l: a[0], short: a[1], name: a[2]};
-});
+  ["O", "Pyr", "Pyrolysine"]
+].map(([l, short, name]) => ({l, short, name}));
 export const aaToCodon = (codon) => {
   const hm = {
     A: "GCN",
@@ -152,25 +150,32 @@ export const codonToAa = (codon) => {
       return null;
   }
 };
-export const anticodon = (str) => {
-  return Array.from(str).map((a) => {
-    switch (a) {
-      case "A":
-        return "T";
-      case "T":
-        return "A";
-      case "G":
-        return "C";
-      case "C":
-        return "G";
-      case "U":
-        return "A";
-        break;
-      default:
-        return null;
-    }
-  }).join("");
+const isBasePair = (s) => {
+  if (s.length > 1) {
+    throw Error("lenght must be 1");
+  }
+  const u = s.toUpperCase();
+  return ["A", "T", "C", "G", "U"].includes(u);
 };
+const anticodonUnit = (s) => {
+  switch (s) {
+    case "A":
+      return "T";
+    case "T":
+      return "A";
+    case "G":
+      return "C";
+    case "C":
+      return "G";
+    case "U":
+      return "A";
+  }
+};
+export const anticodon = (str) => {
+  const aas2 = Array.from(str).filter((a) => isBasePair(a));
+  return anticodonArray(aas2).join("");
+};
+export const anticodonArray = (aas2) => aas2.map((a) => anticodonUnit(a));
 export const dnaToRna = (str) => {
   return Array.from(str).map((a) => {
     switch (a) {
