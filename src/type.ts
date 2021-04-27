@@ -24,3 +24,8 @@ export enum Codon {
   "]" = "TAG",
   "}" = "TGA",
 }
+export interface AA {
+  l: string;
+  short: string;
+  name: string;
+}

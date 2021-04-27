@@ -1,10 +1,9 @@
 import * as T from "./type";
-//case class AminoAcid(l: Char, short: String, name: String)
 
 /**
  * @see https://en.wikipedia.org/wiki/Amino_acid
  */
-export const aas = [
+export const aas: T.AA[] = [
   ["F", "Phe", "Phenylananine"],
   ["L", "Leu", "Leucine"],
   ["I", "Ile", "Isoleucine"],
@@ -26,10 +25,8 @@ export const aas = [
   ["S", "Ser", "Serine"],
   ["G", "Gly", "Glycine"],
   ["U", "Sec", "Selenocysteine"], // 21st aa
-  ["O", "Pyr", "Pyrrolysine"], // not in humans
-].map((a) => {
-  return { l: a[0], short: a[1], name: a[2] };
-});
+  ["O", "Pyr", "Pyrolysine"], // not in humans
+].map(([l, short, name]) => ({ l, short, name }));
 
 /*
   R => purines abbreviated as R (G|A)
@@ -171,27 +168,42 @@ export const codonToAa = (codon: string) => {
   }
 };
 
-export const anticodon = (str: string) => {
-  return Array.from(str)
-    .map((a) => {
-      switch (a) {
-        case "A":
-          return "T";
-        case "T":
-          return "A";
-        case "G":
-          return "C";
-        case "C":
-          return "G";
-        case "U":
-          return "A";
-          break;
-        default:
-          return null;
-      }
-    })
-    .join("");
+type BasePair = "A" | "T" | "C" | "G" | "U";
+
+const isBasePair = (s: string): s is BasePair => {
+  if (s.length > 1) {
+    throw Error("lenght must be 1");
+  }
+
+  // to upper case
+  const u = s.toUpperCase();
+
+  return ["A", "T", "C", "G", "U"].includes(u);
 };
+
+const anticodonUnit = (s: BasePair): BasePair => {
+  switch (s) {
+    case "A":
+      return "T";
+    case "T":
+      return "A";
+    case "G":
+      return "C";
+    case "C":
+      return "G";
+    case "U":
+      return "A";
+  }
+};
+
+export const anticodon = (str: string): string => {
+  const aas = Array.from(str).filter((a) => isBasePair(a)) as BasePair[];
+
+  return anticodonArray(aas).join("");
+};
+
+export const anticodonArray = (aas: BasePair[]): BasePair[] =>
+  aas.map((a) => anticodonUnit(a));
 
 export const dnaToRna = (str: string) => {
   return Array.from(str)
