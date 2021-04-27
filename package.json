@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "SNOWPACK_PUBLIC_URL= snowpack dev",
-    "build": "SNOWPACK_PUBLIC_URL=bio snowpack build",
+    "build": "SNOWPACK_PUBLIC_URL=/bio snowpack build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
