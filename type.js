@@ -1,0 +1,26 @@
+export var Codon;
+(function(Codon2) {
+  Codon2["A"] = "GCN";
+  Codon2["R"] = "CGN";
+  Codon2["N"] = "AAY";
+  Codon2["D"] = "GAY";
+  Codon2["C"] = "TGY";
+  Codon2["Q"] = "CAR";
+  Codon2["E"] = "GAR";
+  Codon2["G"] = "GGN";
+  Codon2["H"] = "CAY";
+  Codon2["I"] = "ATM";
+  Codon2["L"] = "CTN";
+  Codon2["K"] = "AAR";
+  Codon2["M"] = "ATG";
+  Codon2["F"] = "TTY";
+  Codon2["P"] = "CCN";
+  Codon2["S"] = "TCN";
+  Codon2["T"] = "ACN";
+  Codon2["W"] = "TGG";
+  Codon2["Y"] = "TAY";
+  Codon2["V"] = "GTN";
+  Codon2[")"] = "TAA";
+  Codon2["]"] = "TAG";
+  Codon2["}"] = "TGA";
+})(Codon || (Codon = {}));
